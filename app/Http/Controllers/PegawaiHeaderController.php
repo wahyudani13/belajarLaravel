@@ -23,6 +23,8 @@ class PegawaiHeaderController extends Controller
     public function create()
     {
         //
+
+        return view('pages.pegawai.insert');
     }
 
     /**
@@ -30,7 +32,26 @@ class PegawaiHeaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $request->validate([
+            'nama_pegawai' => 'required',
+            'jabatan_pegawai' => 'required',
+            'alamat_pegawai' => 'required',
+            'usia_pegawai' => 'required',
+        ], [
+            'nama_pegawai.required' => 'Hallow Jangan lupa di isi ini nama barangnya',
+            'jabatan_pegawai.required' => 'Masa iya, harga barang nya dikosongin?',
+            'alamat_pegawai.required' => 'Yang ini boleh di isi asal aja, tapi harus tetap di isi ya!',
+            'usia_pegawai.required' => 'Usia kamu berapa saat ini?',
+        ]);
+
+        PegawaiHeader::create([
+            'nama_pegawai' => $request->nama_pegawai,
+            'jabatan_pegawai' => $request->jabatan_pegawai,
+            'alamat_pegawai' => $request->alamat_pegawai,
+            'usia_pegawai' => $request->usia_pegawai,
+        ]);
+        return redirect('/pegawai');
     }
 
     /**
@@ -44,9 +65,12 @@ class PegawaiHeaderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PegawaiHeader $pegawaiHeader)
+    public function edit($id)
     {
         //
+        $elequentORM = PegawaiHeader::findOrFail($id);
+        // dd($id);
+        return view('pages.pegawai.edit', ['data' => $elequentORM]);
     }
 
     /**
@@ -54,14 +78,42 @@ class PegawaiHeaderController extends Controller
      */
     public function update(Request $request, PegawaiHeader $pegawaiHeader)
     {
-        //
+        // validasi data
+        $request->validate([
+            'nama_pegawai' => 'required',
+            'jabatan_pegawai' => 'required',
+            'alamat_pegawai' => 'required',
+            'usia_pegawai' => 'required',
+        ], [
+            'nama_pegawai.required' => 'Hallow Jangan lupa di isi ini nama barangnya',
+            'jabatan_pegawai.required' => 'Masa iya, harga barang nya dikosongin?',
+            'alamat_pegawai.required' => 'Yang ini boleh di isi asal aja, tapi harus tetap di isi ya!',
+            'usia_pegawai.required' => 'Usia kamu berapa saat ini?',
+        ]);
+        // dd($request->id);
+
+        $test = PegawaiHeader::where('id', $request->id)
+            ->update([
+                'nama_pegawai' => $request->nama_pegawai,
+                'jabatan_pegawai' => $request->jabatan_pegawai,
+                'alamat_pegawai' => $request->alamat_pegawai,
+                'usia_pegawai' => $request->usia_pegawai,
+            ]);
+
+
+        return redirect('/pegawai');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PegawaiHeader $pegawaiHeader)
+    public function destroy($id)
     {
         //
+        $getData = PegawaiHeader::find($id);
+        // dd($getData);
+        $getData->delete($id);
+
+        return redirect('/pegawai');
     }
 }

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('usia_pegawai');
             $table->datetime('created_at');
             $table->datetime('updated_at');
-            $table->timestamps();
         });
     }
 

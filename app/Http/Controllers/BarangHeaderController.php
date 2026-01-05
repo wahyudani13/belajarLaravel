@@ -57,9 +57,9 @@ class BarangHeaderController extends Controller
     public function show(BarangHeader $barangHeader)
     {
         //
-        // dd("ini barang" . BarangHeader::findOrFail($barangHeader->id));
+        dd("ini barang" . BarangHeader::findOrFail($barangHeader->id));
         // $barangHeader = BarangHeader::findOrFail($id);
-        // return view('pages.barang.edit', compact('barangHeader'));
+        return view('pages.barang.edit', compact('barangHeader'));
     }
 
     /**
@@ -99,7 +99,7 @@ class BarangHeaderController extends Controller
         //         'keterangan' => $data->keterangan
         //     ]);
 
-        $affected = BarangHeader::where('id', $request->id)
+        BarangHeader::where('id', $request->id)
             ->update([
                 'nama_barang' => $request->nama_barang,
                 'harga_barang' => $request->harga_barang,

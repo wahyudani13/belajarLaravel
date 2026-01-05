@@ -3,7 +3,8 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangHeaderController;
 use App\Http\Controllers\PegawaiHeaderController;
-use App\Http\Controllers\TransaksiHeaderController;
+// use App\Http\Controllers\TransaksiHeaderController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,15 +22,18 @@ Route::get('/viewEdit/{id}', [BarangController::class, 'viewEdit']);
 Route::put('/putUpdate/{id}', [BarangController::class, 'putUpdate']);
 Route::DELETE('/delete/{id}', [BarangController::class, 'delete']);
 
+Route::view('/inputTransaksi', 'pages.inputTransaksi.input', ['data' => 'data']);
+
 
 //Transaksi
 
 // Route::get('/transaksi', [TransaksiHeaderController::class, 'index']);
-Route::resource('/transaksi', TransaksiHeaderController::class);
+Route::resource('/transaksi', TransaksiController::class);
 
 
 //Barang
 Route::resource('/barang', BarangHeaderController::class);
+
 
 //Pegawai
 Route::resource('/pegawai', PegawaiHeaderController::class);

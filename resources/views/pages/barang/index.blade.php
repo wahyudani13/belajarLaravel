@@ -37,7 +37,7 @@
                     <td class="text-center">{{$row->updated_at}}</td>
                     <td class="text-center">
                         <a href="/barang/{{$row->id}}/edit" type="button" class="btn btn-sm btn-primary">Ubah</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$row->id}}">
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$row->id}}">
                             Hapus
                         </button>
                         <!-- <form class="" action="/barang/{{$row->id}}" method="post">

@@ -7,7 +7,7 @@
             <h1>View Data Transaksi</h1>
         </div>
         <div class="col-3 pull-right">
-            <a href="/insert" type="button" class="btn btn-primary">Tambah Data Transaksi</a>
+            <a href="/transaksi/create" type="button" class="btn btn-primary">Tambah Data Transaksi</a>
         </div>
     </div>
     <div class="table-responsive-sm">
@@ -26,12 +26,11 @@
                 <td class="text-center">{{$row->nama_barang}}</td>
                 <td class="text-center">{{$row->created_at}}</td>
                 <td class="text-center">
-                    <a href="/transaksi/{{$row->id}}/edit" type="button" class="btn btn-primary">Edit</a>
-                    ||
+                    <a href="/transaksi/{{$row->id}}/edit" type="button" class="btn btn-sm btn-primary">Edit</a>
                     <form action="/delete/{{$row->id}}" method="post">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
