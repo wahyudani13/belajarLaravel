@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangHeader;
 use App\Models\PegawaiHeader;
+use App\Models\TransaksiDetail;
 use App\Models\TransaksiHeader;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,57 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // dd($request->getBarang);
+        // Ambil tanggal transaksi
+        $tanggal = $request->tanggal_transaksi;
+
+        // Ambil pegawai
+        $pegawaiId = $request->inputGroupSelect01;
+
+        // Ambil semua item
+        $barangId   = $request->getBarang;      // array of barang IDs
+        $hargaBarang = $request->harga_barang;   // array of harga
+        $quantitys  = $request->quantity;       // array of qty
+
+        $grandTotal = 0;
+        $items = [];
+
+        // Loop semua item
+        foreach ($barangId as $index => $barangId) {
+            $harga = isset($hargaBarang[$index]) ? (int)$hargaBarang[$index] : 0;
+            $qty   = isset($quantitys[$index]) ? (int)$quantitys[$index] : 0;
+            $total = $harga * $qty;
+
+            $items[] = [
+                'barang_id' => $barangId,
+                'harga'     => $harga,
+                'qty'       => $qty,
+                'total'     => $total,
+            ];
+
+            $grandTotal += $total;
+        }
+
+        // Simpan transaksi ke database
+        $transaksi = TransaksiHeader::create([
+            'tanggal_transaksi' => $tanggal,
+            'pegawai_id'        => $pegawaiId,
+            'grand_total'       => $grandTotal,
+        ]);
+
+        // Simpan detail transaksi
+        foreach ($items as $item) {
+            TransaksiDetail::create([
+                'transaksi_id' => $transaksi->id,
+                'barang_id'    => $item['barang_id'],
+                'harga'        => $item['harga'],
+                'qty'          => $item['qty'],
+                'total'        => $item['total'],
+            ]);
+        }
+
+        return redirect('/transaksi')->with('success', 'Transaksi berhasil disimpan!');
     }
 
     /**
@@ -48,7 +99,8 @@ class TransaksiController extends Controller
      */
     public function show(TransaksiHeader $transaksiHeader)
     {
-        //
+        //        
+
     }
 
     /**
