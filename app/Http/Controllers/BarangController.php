@@ -2,90 +2,98 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
-use App\Models\table_barang;
-use DateTime;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\RecordNotFoundException;
-
-use function Symfony\Component\Clock\now;
+use Illuminate\Support\Str;
 
 class BarangController extends Controller
 {
-    public function indexBarang()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $data = table_barang::get();
-        // dd($data);
-        return view('pages.viewIndex', ['data' => $data]);
+        $elequentORM = Barang::get();
+        // dd($elequentORM->all());
+        return view('pages.barang.index', ['data' => $elequentORM]);
     }
 
-    public function tambahBarang()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        return view('pages.viewTambah');
+        //
+        return view('pages.barang.insert');
     }
 
-    // public function insertBarang()
-    // {
-    //     if (isset($_POST['submit'])) {
-    //         $data = [
-    //             'nama' => $_POST['nama'],
-    //             'quantity' => $_POST['quantity'],
-    //             'keterangan' => $_POST['keterangan'],
-    //         ];
-    //     }
-    // }
-
-    public function insertBarang(Request $data)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        //Validasi form harus di isi
-        $data->validate([
-            'nama' => 'required',
-            'quantity' => 'required',
-            'keterangan' => 'required',
-        ]);
-
-        // ERROR GIMANA CARA NAMPILINNYA??
-        // dd($data->errors());
-
-        //memasukkan data kedalam table INSERT
-        // DB::table('table_barang')->create([]);
-        table_barang::create([
-            'nama' => $data->nama,
-            'quantity' => $data->quantity,
-            'keterangan' => $data->keterangan,
-        ]);
-
-        return redirect('/viewIndex');
-    }
-
-    public function viewEdit($id)
-    {
-        /* 
-        mencari detail data by id
-        ada beberapa cara diantaranya seperti dibawah ini.
-        **/
-        $db = table_barang::findOrFail($id); // << elequent orm mengembalikan 404 notfound
-        // $db = DB::table('table_barang')->find($id); // << query builder mengembalikan nilai null
-        // $db = DB::table('table_barang')->where('id', $id)->firstOrFail(); // << campuran mengembalikan 404 notfound
-
-        // dd($db->nama);
-
-
-        return view('/pages.viewEdit', ['data' => $db]);
-    }
-
-    public function putUpdate($id, Request $data)
-    {
-        //validasi gotcha rescue
-        $data->validate([
-            'nama' => 'required',
-            'quantity' => 'required',
-            'keterangan' => 'required',
+        //
+        // dd($request->all());
+        $request->validate([
+            // 'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
         ], [
-            'nama.required' => 'Hallow Jangan lupa di isi ini nama barangnya',
-            'quantity.required' => 'Masa iya, quantity nya dikosongin?',
-            'keterangan.required' => 'Yang ini boleh di isi asal aja, tapi harus tetap di isi ya!',
+            // 'kode_barang.required' => 'Hallow Jangan lupa di isi ini kode barangnya',
+            'nama_barang.required' => 'Hallow Jangan lupa di isi ini nama barangnya',
+            'harga.required' => 'Masa iya, harga barang nya dikosongin?',
+            'stok.required' => 'Yang ini boleh di isi asal aja, tapi harus tetap di isi ya!',
+        ]);
+
+        $elequentORM = Barang::create([
+            'kode_barang' => Str::random(20),
+            'nama_barang' => $request->nama_barang,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+        ]);
+        return redirect('/barang');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Barang $barang)
+    {
+        //
+        Barang::findOrFail($barang->id);
+        // $barangHeader = BarangHeader::findOrFail($id);
+        return view('pages.barang.edit', compact('barang'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        //
+        $elequentORM = Barang::findOrFail($id);
+        // dd($id);
+        return view('pages.barang.edit', ['data' => $elequentORM]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Barang $barang)
+    {
+        //
+        //validasi gotcha rescue
+        $request->validate([
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+        ], [
+            'kode_barang.required' => 'Hallow Jangan lupa di isi ini kode barangnya',
+            'nama_barang.required' => 'Hallow Jangan lupa di isi ini nama barangnya',
+            'harga.required' => 'Masa iya, harga barang nya dikosongin?',
+            'stok.required' => 'Yang ini boleh di isi asal aja, tapi harus tetap di isi ya!',
         ]);
         // var_dump($id);
 
@@ -97,21 +105,27 @@ class BarangController extends Controller
         //         'keterangan' => $data->keterangan
         //     ]);
 
-        $affected = table_barang::where('id', $id)
+        Barang::where('id', $request->id)
             ->update([
-                'nama' => $data->nama,
-                'quantity' => $data->quantity,
-                'keterangan' => $data->keterangan,
+                'kode_barang' => $request->kode_barang,
+                'nama_barang' => $request->nama_barang,
+                'harga' => $request->harga,
+                'stok' => $request->stok,
                 // 'updated_at' => now()
             ]);
 
-        return redirect('/viewIndex');
+        return redirect('/barang');
     }
 
-    public function delete($id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
     {
-        // dd($id);
-        $deleted = DB::table('table_barang')->where('id', $id)->delete();
-        return redirect('/viewIndex');
+        //
+        $getData = Barang::find($id);
+        // dd($getData);
+        $getData->delete($id);
+        return redirect('/barang');
     }
 }

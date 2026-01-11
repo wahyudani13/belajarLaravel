@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BarangHeader extends Model
+class Barang extends Model
 {
     //
+    protected $table = "barang";
     protected $guarded = ['id'];
 }

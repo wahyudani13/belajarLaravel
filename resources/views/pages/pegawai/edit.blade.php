@@ -26,26 +26,26 @@
             @enderror
         </div>
         <div class="row mb-3">
-            <label for="jabatan_pegawai" class="form-label">Jabatan Pegawai</label>
-            <input type="text" class="form-control" id="jabatan_pegawai" name="jabatan_pegawai" placeholder="Jabatan Pegawai" value="{{ old('jabatan_pegawai', $data->jabatan_pegawai) }}">
-            @error('jabatan_pegawai')
-            <div class="form-text text-danger" id="jabatan_pegawaihelp">{{$message}}</div>
+            <label for="jabatan" class="form-label">Jabatan Pegawai</label>
+            <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan Pegawai" value="{{ old('jabatan', $data->jabatan) }}">
+            @error('jabatan')
+            <div class="form-text text-danger" id="jabatanhelp">{{$message}}</div>
             @enderror
         </div>
         <div class="row mb-3">
-            <label for="usia_pegawai" class="form-label">Usia Pegawai</label>
-            <input type="number" class="form-control" id="usia_pegawai" name="usia_pegawai" placeholder="Usia Pegawai" value="{{ old('usia_pegawai', $data->usia_pegawai) }}">
-            @error('usia_pegawai')
-            <div class="form-text text-danger" id="usia_pegawaihelp">{{$message}}</div>
+            <label for="email" class="form-label">Email Pegawai</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Usia Pegawai" value="{{ old('email', $data->email) }}">
+            @error('email')
+            <div class="form-text text-danger" id="emailhelp">{{$message}}</div>
             @enderror
         </div>
-        <div class="row mb-3">
+        <!-- <div class="row mb-3">
             <label for="alamat_pegawai" class="form-label">Alamat Pegawai</label>
             <textarea class="form-control" id="alamat_pegawai" name="alamat_pegawai" rows="3" placeholder="Alamat Pegawai">{{ old('alamat_pegawai', $data->alamat_pegawai) }}</textarea>
             @error('alamat_pegawai')
             <div class="form-text text-danger" id="alamat_pegawaihelp">{{$message}}</div>
             @enderror
-        </div>
+        </div> -->
 
         <div class="row mb-3">
             <input type="submit" class="btn btn-lg btn-primary pull-right" name="submit" value="Add">

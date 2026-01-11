@@ -17,7 +17,7 @@
                 <th class="text-center">ID</th>
                 <th class="text-center">Nama Pegawai</th>
                 <th class="text-center">Jabatan</th>
-                <th class="text-center">Alamat</th>
+                <th class="text-center">Email</th>
                 <th class="text-center">Action</th>
             </tr>
             <?php $no = 1; ?>
@@ -26,8 +26,8 @@
                 <td>{{$no++}}</td>
                 <td class="text-center">{{$row->id}}</td>
                 <td class="text-center">{{$row->nama_pegawai}}</td>
-                <td class="text-center">{{$row->jabatan_pegawai}}</td>
-                <td class="text-center">{{$row->alamat_pegawai}}</td>
+                <td class="text-center">{{$row->jabatan}}</td>
+                <td class="text-center">{{$row->email}}</td>
                 <td class="text-center">
                     <a href="/pegawai/{{$row->id}}/edit" type="button" class="btn btn-sm btn-primary">Edit</a>
                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$row->id}}">

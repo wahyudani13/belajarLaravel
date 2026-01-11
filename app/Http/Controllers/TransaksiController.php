@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangHeader;
+use App\Models\Barang;
+use App\Models\Pegawai;
 use App\Models\PegawaiHeader;
 use App\Models\TransaksiDetail;
 use App\Models\TransaksiHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Type\Integer;
 
 class TransaksiController extends Controller
 {
@@ -15,9 +18,10 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $data = TransaksiHeader::get();
+        $dataHeader = TransaksiHeader::get();
+        $dataDetails = TransaksiDetail::get();
         // dd($data);
-        return view('pages.transaksi.index', ['data' => $data]);
+        return view('pages.transaksi.index', compact('dataHeader', 'dataDetails'));
     }
 
     /**
@@ -26,14 +30,9 @@ class TransaksiController extends Controller
     public function create()
     {
         //
-        $getPegawai = PegawaiHeader::all();
-        $getBarang = BarangHeader::all();
-        // return view('pages.transaksi.input', ['pegawai' => $getPegawai, 'barang' => $getBarang]);
+        $getPegawai = Pegawai::all();
+        $getBarang = Barang::all();
         return view('pages.transaksi.input', compact('getBarang', 'getPegawai'));
-        // return view('pages.transaksi.input', [response()->json([
-        //     'getPegawai' => PegawaiHeader::all(),
-        //     'getBarang' => BarangHeader::all()
-        // ])]);
     }
 
     /**
@@ -42,17 +41,19 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->getBarang);
+        // dd($request);
         // Ambil tanggal transaksi
         $tanggal = $request->tanggal_transaksi;
-
+        // dd($request);
         // Ambil pegawai
-        $pegawaiId = $request->inputGroupSelect01;
+        $pegawaiId = $request->getPegawai;
 
         // Ambil semua item
         $barangId   = $request->getBarang;      // array of barang IDs
         $hargaBarang = $request->harga_barang;   // array of harga
         $quantitys  = $request->quantity;       // array of qty
+
+        // dd($barangId);
 
         $grandTotal = 0;
         $items = [];
@@ -65,31 +66,39 @@ class TransaksiController extends Controller
 
             $items[] = [
                 'barang_id' => $barangId,
+                // 'nama_barang' => $barangId,
                 'harga'     => $harga,
-                'qty'       => $qty,
+                'quantity'       => $qty,
                 'total'     => $total,
             ];
 
             $grandTotal += $total;
         }
+        // dd($items);
 
-        // Simpan transaksi ke database
+
+        // // Simpan transaksi ke database
         $transaksi = TransaksiHeader::create([
-            'tanggal_transaksi' => $tanggal,
+            'kode_transaksi' => rand(0, 100),
+            'tanggal' => $tanggal,
             'pegawai_id'        => $pegawaiId,
-            'grand_total'       => $grandTotal,
+            'grandtotal_harga'       => $grandTotal,
         ]);
 
-        // Simpan detail transaksi
+        // dd($transaksi);
+        // // Simpan detail transaksi
         foreach ($items as $item) {
-            TransaksiDetail::create([
+
+            $transdetail = TransaksiDetail::create([
                 'transaksi_id' => $transaksi->id,
                 'barang_id'    => $item['barang_id'],
+                // 'harga_barang'        => $item['harga'],
+                'jumlah'          => $item['quantity'],
                 'harga'        => $item['harga'],
-                'qty'          => $item['qty'],
-                'total'        => $item['total'],
             ]);
         }
+
+        // dd($transdetail);
 
         return redirect('/transaksi')->with('success', 'Transaksi berhasil disimpan!');
     }

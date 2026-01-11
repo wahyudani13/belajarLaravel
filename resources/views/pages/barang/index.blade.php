@@ -10,15 +10,16 @@
             <a href="/barang/create" type="button" class="btn btn-success">Tambah Data Barang</a>
         </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive-sm">
         <table class="table table-info table-striped">
             <thead>
                 <tr>
                     <th>No.</th>
                     <th class="text-center">ID</th>
+                    <th class="text-center">Kode Barang</th>
                     <th class="text-center">Nama Barang</th>
                     <th class="text-center">Harga Barang</th>
-                    <th class="text-center">Keterangan</th>
+                    <th class="text-center">Stok</th>
                     <th class="text-center">Created At</th>
                     <th class="text-center">Updated At</th>
                     <th class="text-center">Action</th>
@@ -30,21 +31,17 @@
                 <tr>
                     <td>{{$no++}}</td>
                     <td class="text-center">{{$row->id}}</td>
+                    <td class="text-center">{{$row->kode_barang}}</td>
                     <td class="text-center">{{$row->nama_barang}}</td>
-                    <td class="text-center">{{$row->harga_barang}}</td>
-                    <td class="text-center">{{$row->keterangan_barang}}</td>
+                    <td class="text-center">{{$row->harga}}</td>
+                    <td class="text-center">{{$row->stok}}</td>
                     <td class="text-center">{{$row->created_at}}</td>
                     <td class="text-center">{{$row->updated_at}}</td>
-                    <td class="text-center">
-                        <a href="/barang/{{$row->id}}/edit" type="button" class="btn btn-sm btn-primary">Ubah</a>
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$row->id}}">
+                    <td class="">
+                        <a href="/barang/{{$row->id}}/edit" type="button" class="btn btn-primary">Ubah</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$row->id}}">
                             Hapus
                         </button>
-                        <!-- <form class="" action="/barang/{{$row->id}}" method="post">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                        </form> -->
                     </td>
                 </tr>
                 @endforeach

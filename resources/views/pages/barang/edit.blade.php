@@ -15,8 +15,14 @@
         @method('PUT')
         @csrf
         <div class="row mb-3">
-            <label for="id" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" name="id" placeholder="AUTO INCREMENT" readonly value="{{ old('id', $data->id) }}">
+            <div class="col-6">
+                <label for="kode_barang" class="form-label">Kode Barang</label>
+                <input type="text" class="form-control" id="kode_barang" name="kode_barang" placeholder="AUTO INCREMENT" readonly value="{{ old('kode_barang', $data->kode_barang) }}">
+            </div>
+            <div class="col-6">
+                <label for="id" class="form-label">ID Barang</label>
+                <input type="text" class="form-control" id="id" name="id" placeholder="AUTO INCREMENT" readonly value="{{ old('id', $data->id) }}">
+            </div>
         </div>
         <div class="row mb-3">
             <label for="nama_barang" class="form-label">Nama Barang</label>
@@ -26,17 +32,17 @@
             @enderror
         </div>
         <div class="row mb-3">
-            <label for="harga_barang" class="form-label">Harga Barang</label>
-            <input type="number" class="form-control" id="harga_barang" name="harga_barang" placeholder="Harga Barang" value="{{ old('harga_barang', $data->harga_barang) }}">
-            @error('harga_barang')
-            <div class="form-text text-danger" id="harga_baranghelp">{{$message}}</div>
+            <label for="harga" class="form-label">Harga Barang</label>
+            <input type="number" class="form-control" id="harga" name="harga" placeholder="Harga Barang" value="{{ old('harga', $data->harga) }}">
+            @error('harga')
+            <div class="form-text text-danger" id="hargahelp">{{$message}}</div>
             @enderror
         </div>
         <div class="row mb-3">
-            <label for="keterangan_barang" class="form-label">Keterangan</label>
-            <textarea class="form-control" id="keterangan_barang" name="keterangan_barang" rows="3" placeholder="Keterangan Barang">{{ old('keterangan_barang', $data->keterangan_barang) }}</textarea>
-            @error('keterangan_barang')
-            <div class="form-text text-danger" id="keterangan_baranghelp">{{$message}}</div>
+            <label for="stok" class="form-label">Keterangan</label>
+            <input type="number" class="form-control" id="stok" name="stok" placeholder="Stok Barang" value="{{ old('stok', $data->stok) }}">
+            @error('stok')
+            <div class="form-text text-danger" id="stokhelp">{{$message}}</div>
             @enderror
         </div>
         <div class="row mb-3">

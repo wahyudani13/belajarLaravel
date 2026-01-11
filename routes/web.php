@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangHeaderController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PegawaiHeaderController;
 // use App\Http\Controllers\TransaksiHeaderController;
 use App\Http\Controllers\TransaksiController;
@@ -32,10 +33,10 @@ Route::resource('/transaksi', TransaksiController::class);
 
 
 //Barang
-Route::resource('/barang', BarangHeaderController::class);
+Route::resource('/barang', BarangController::class);
 
 
 //Pegawai
-Route::resource('/pegawai', PegawaiHeaderController::class);
+Route::resource('/pegawai', PegawaiController::class);
 
 // Route::view('/viewIndexLagi', 'pages.viewIndex');

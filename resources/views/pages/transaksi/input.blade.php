@@ -6,23 +6,25 @@
         <h1>Input Transaksi</h1>
     </div>
     <div class="col-3 pull-right">
-        <a href="#" type="button" class="btn btn-success">Kembali Ke Menu</a>
+        <a href="/transaksi" type="button" class="btn btn-success">Kembali Ke Menu</a>
     </div>
 </div>
 
 <form action="/transaksi" method="post">
     @csrf
-    <div class="row mb-3">
-        <label for="id" class="form-label">ID Transaksi</label>
-        <input type="text" class="form-control" id="id" name="id" placeholder="AUTO INCREMENT" readonly>
+    <div class="row mb-3 justify-content-end">
+        <div class="col-6">
+            <label for="id" class="form-label">ID Transaksi</label>
+            <input type="text" class="form-control" id="id" name="id" placeholder="AUTO INCREMENT" readonly>
+        </div>
+        <div class="col-6">
+            <label for="tanggal_transaksi" class="form-label">Tanggal Transaksi</label>
+            <input type="date" class="form-control" name="tanggal_transaksi" id="tanggal_transaksi">
+        </div>
     </div>
     <div class="row mb-3">
-        <label for="date" class="form-label">Tanggal Transaksi</label>
-        <input type="date" name="tanggal_transaksi" id="tanggal_transaksi">
-    </div>
-    <div class="row mb-3">
-        <select class="form-select" id="inputGroupSelect01">
-            <option selected>Pilih Pegawai</option>
+        <select class="form-select" id="getPegawai" name="getPegawai">
+            <option>Pilih Pegawai</option>
             @foreach($getPegawai as $row)
             <option value="{{$row->id}}">{{$row->nama_pegawai}}</option>
             @endforeach
@@ -38,9 +40,13 @@
         <button id="addRowBtn" type="button" class="btn btn-md btn-primary">Tambah Item</button>
     </div>
 
-    <div class="row mb-3">
-        <h4 class="text-center">TOTAL</h4>
-        <span id="grand-total">0</span>
+    <div class="row mb-3 justify-content-end">
+        <div class="col-2">
+            <h4 class="text-center">TOTAL</h4>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" id="grand-total" name="grand-total" readonly placeholder="Rp 0">
+        </div>
     </div>
 
     <div class="row mb-3 justify-content-end">
@@ -48,7 +54,7 @@
             <input type="submit" class="btn btn-lg btn-primary pull-right" name="submit" value="Add">
         </div>
         <div class="col-2">
-            <a href="/pegawai" type="button" class="ml-3 btn btn-lg btn-danger">Batalkan</a>
+            <a href="/transaksi" type="button" class="ml-3 btn btn-lg btn-danger">Batalkan</a>
         </div>
     </div>
 </form>
@@ -76,7 +82,7 @@
             <select name="getBarang[${rowIndex}]" class="form-select select-barang" required>
                 <option value="">Pilih Barang</option>
                 @foreach($getBarang as $item)
-                    <option value="{{ $item->id }}" data-harga_barang="{{ $item->harga_barang }}">
+                    <option value="{{ $item->id }}" data-harga_barang="{{ $item->harga }}">
                         {{ $item->nama_barang }}
                     </option>
                 @endforeach
@@ -89,10 +95,10 @@
             <input class="form-control quantity" type="number" name="quantity[${rowIndex}]" placeholder="Quantity">
         </div>
         <div class="col-2">
-            <span class="item-total">0</span>
+            <input type="number" class="form-control item-total" id="item-total" name="item-total" readonly placeholder="Rp 0">
         </div>
         <div class="col-2">
-            <button class="btn btn-md btn-danger" type="button" onclick="removeRow(this)">Hapus</button>
+            <button class="btn btn-md btn-danger w-100" type="button" onclick="removeRow(this)">Hapus</button>
         </div>
     `;
         formRows.appendChild(row);
@@ -126,10 +132,10 @@
             const price = parseFloat(row.querySelector('.harga_barang').value) || 0;
             const qty = parseFloat(row.querySelector('.quantity').value) || 0;
             const total = price * qty;
-            row.querySelector('.item-total').textContent = formatRupiah(total);
+            row.querySelector('.item-total').setAttribute('placeholder', formatRupiah(total));
             grandTotal += total;
         });
-        document.getElementById('grand-total').textContent = formatRupiah(grandTotal);
+        document.querySelector('#grand-total').setAttribute('placeholder', formatRupiah(grandTotal));
     }
 
     // load awal: tambah satu row

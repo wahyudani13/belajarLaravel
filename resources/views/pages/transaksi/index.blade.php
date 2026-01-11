@@ -14,19 +14,22 @@
         <table class="table table-info table-striped">
             <tr>
                 <th>No.</th>
-                <th class="text-center">ID</th>
-                <th class="text-center">Nama Barang</th>
+                <th class="text-center">ID Transaksi</th>
+                <th class="text-center">ID Barang</th>
+                <th class="text-center">Harga Barang</th>
+                <th class="text-center">Jumlah</th>
                 <th class="text-center">Action</th>
             </tr>
             <?php $no = 1; ?>
-            @foreach ($data as $row)
+            @foreach ($dataDetails as $row)
             <tr>
                 <td>{{$no++}}</td>
-                <td class="text-center">{{$row->id}}</td>
-                <td class="text-center">{{$row->nama_barang}}</td>
-                <td class="text-center">{{$row->created_at}}</td>
-                <td class="text-center">
-                    <a href="/transaksi/{{$row->id}}/edit" type="button" class="btn btn-sm btn-primary">Edit</a>
+                <td class="text-center">{{$row->transaksi_id}}</td>
+                <td class="text-center">{{$row->barang_id}}</td>
+                <td class="text-center">{{$row->harga}}</td>
+                <td class="text-center">{{$row->jumlah}}</td>
+                <td class="d-flex justify-content-between">
+                    <a href="/transaksi/{{$row->id}}/edit" class="btn btn-sm btn-primary">Edit</a>
                     <form action="/delete/{{$row->id}}" method="post">
                         @method('DELETE')
                         @csrf
