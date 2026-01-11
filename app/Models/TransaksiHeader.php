@@ -9,4 +9,9 @@ class TransaksiHeader extends Model
     //
     protected $table = "transaksi_header";
     protected $guarded = ['id'];
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'pegawai_id', 'id');
+    }
 }

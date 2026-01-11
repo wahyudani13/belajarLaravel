@@ -10,6 +10,7 @@ use App\Models\TransaksiHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Type\Integer;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -20,8 +21,19 @@ class TransaksiController extends Controller
     {
         $dataHeader = TransaksiHeader::get();
         $dataDetails = TransaksiDetail::get();
-        // dd($data);
-        return view('pages.transaksi.index', compact('dataHeader', 'dataDetails'));
+
+        // $dataJoin = DB::table('transaksi_header')
+        //     ->join('pegawai', 'transaksi_header.pegawai_id', '=', 'pegawai.id')
+        //     ->select('transaksi_header.*', 'pegawai.nama_pegawai')
+        //     ->get();
+
+        $dataJoin = $transaksi = TransaksiHeader::join('pegawai', 'transaksi_header.pegawai_id', '=', 'pegawai.id')->get();
+
+
+        // $dataJoin = TransaksiHeader::with('pegawai')->get();
+
+        // dd($dataJoin);
+        return view('pages.transaksi.index', compact('dataHeader', 'dataDetails', 'dataJoin'));
     }
 
     /**
