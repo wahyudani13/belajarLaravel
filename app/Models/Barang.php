@@ -9,4 +9,5 @@ class Barang extends Model
     //
     protected $table = "barang";
     protected $guarded = ['id'];
+
 }

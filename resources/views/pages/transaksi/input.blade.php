@@ -6,7 +6,7 @@
         <h1>Input Transaksi</h1>
     </div>
     <div class="col-3 pull-right">
-        <a href="/transaksi" type="button" class="btn btn-success">Kembali Ke Menu</a>
+        <a href="/transaksi" type="button" class="btn btn-success">Kembali Ke View Transaksi</a>
     </div>
 </div>
 

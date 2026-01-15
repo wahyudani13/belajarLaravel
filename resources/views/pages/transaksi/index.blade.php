@@ -27,7 +27,7 @@
                 <td class="text-center">{{$row->tanggal}}</td>
                 <td class="text-center">{{$row->nama_pegawai}}</td>
                 <td class="d-flex justify-content-between">
-                    <a href="/transaksi/{{$row->id}}/edit" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="/transaksi/{{$row->kode_transaksi}}/edit" class="btn btn-sm btn-primary">Edit</a>
                     <form action="/delete/{{$row->id}}" method="post">
                         @method('DELETE')
                         @csrf

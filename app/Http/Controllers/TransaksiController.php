@@ -97,12 +97,12 @@ class TransaksiController extends Controller
             'grandtotal_harga'       => $grandTotal,
         ]);
 
-        // dd($transaksi);
+        // dd($transaksi->kode_transaksi);
         // // Simpan detail transaksi
         foreach ($items as $item) {
 
             $transdetail = TransaksiDetail::create([
-                'transaksi_id' => $transaksi->id,
+                'transaksi_id' => $transaksi->kode_transaksi,
                 'barang_id'    => $item['barang_id'],
                 // 'harga_barang'        => $item['harga'],
                 'jumlah'          => $item['quantity'],
@@ -129,9 +129,18 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        $db = TransaksiHeader::findOrFail($id);
+        $dt = TransaksiDetail::where('transaksi_id', $id)->get();
+        $getPegawai = Pegawai::all();
+        $getBarang = Barang::all();
+        // $selectedBarangIds = $db->getBarang->pluck('barang_id')->toArray();
 
-        return view('/pages.transaksi.edit', ['data' => $db]);
+        $query = DB::table('transaksi_detail')
+            ->join('transaksi_header', 'transaksi_detail.transaksi_id', '=', 'transaksi_header.kode_transaksi')
+            ->first();
+
+        // dd($dt);
+
+        return view('/pages.transaksi.edit', compact('dt', 'getPegawai', 'getBarang', 'query'));
     }
 
     /**
@@ -139,11 +148,40 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, TransaksiHeader $transaksiHeader)
     {
-        $affected = TransaksiHeader::where('id', $request->id)
-            ->update([
-                'nama_barang' => $request->nama_barang,
-                // 'updated_at' => now()
-            ]);
+        // $affected = TransaksiHeader::where('id', $request->id)
+        //     ->update([
+        //         'nama_barang' => $request->nama_barang,
+        //         // 'updated_at' => now()
+        //     ]);
+
+        // Ambil semua item
+        $barangId   = $request->getBarang;      // array of barang IDs
+        $hargaBarang = $request->harga_barang;   // array of harga
+        $quantitys  = $request->quantity_barang;       // array of qty
+
+        // dd($barangId);
+
+        $grandTotal = 0;
+        $items = [];
+
+        // Loop semua item
+        foreach ($barangId as $index => $barangId) {
+            $harga = isset($hargaBarang[$index]) ? (int)$hargaBarang[$index] : 0;
+            $qty   = isset($quantitys[$index]) ? (int)$quantitys[$index] : 0;
+            $total = $harga * $qty;
+
+            $items[] = [
+                'barang_id' => $barangId,
+                // 'nama_barang' => $barangId,
+                'harga'     => $harga,
+                'quantity'       => $qty,
+                'total'     => $total,
+            ];
+
+            $grandTotal += $total;
+        }
+
+        dd($request);
 
         return redirect('/transaksi');
     }

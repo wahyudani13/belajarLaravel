@@ -7,10 +7,10 @@
             <div class="card text-center bg-secondary text-white shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-3">
-                        <i class="bi bi-box-seam"></i> Tabel Barang Header
+                        <i class="bi bi-box-seam"></i> Tabel Barang
                     </h5>
                     <a href="/barang" class="btn btn-outline-light btn-primary">
-                        <i class="bi bi-eye"></i> Lihat Barang Header
+                        <i class="bi bi-eye"></i> Lihat Barang
                     </a>
                 </div>
             </div>
@@ -34,10 +34,10 @@
             <div class="card text-center bg-secondary text-white shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-3">
-                        <i class="bi bi-people"></i> Tabel Pegawai Header
+                        <i class="bi bi-people"></i> Tabel Pegawai
                     </h5>
                     <a href="/pegawai" class="btn btn-outline-light btn-primary">
-                        <i class="bi bi-eye"></i> Lihat Pegawai Header
+                        <i class="bi bi-eye"></i> Lihat Pegawai
                     </a>
                 </div>
             </div>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <!-- <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card text-center bg-secondary text-white shadow">
                 <div class="card-body">
@@ -69,6 +69,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 @endsection

@@ -14,11 +14,14 @@ return new class extends Migration
         //
         Schema::create('transaksi_detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_id')->constrained('transaksi_header', 'id')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('transaksi_id')->constrained('transaksi_header', 'id')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('transaksi_id', 30);
             $table->foreignId('barang_id')->constrained('barang', 'id')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('jumlah');
             $table->decimal('harga', 12, 2);
             $table->timestamps();
+
+            $table->foreign('transaksi_id')->references('kode_transaksi')->on('transaksi_header')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
