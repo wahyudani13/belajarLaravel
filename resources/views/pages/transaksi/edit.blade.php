@@ -143,7 +143,7 @@
                 </div>
                 <div class="col-2">
                     <label for="quantity_barang" class="form-label">Quantity</label>
-                    <input type="text" class="form-control quantity_barang" id="quantity_barang" name="quantity_barang[${rowIndex}]">
+                    <input type="number" class="form-control quantity_barang" id="quantity_barang" name="quantity_barang[${rowIndex}]">
                 </div>
                 <div class="col-2">
                     <label for="item-total" class="form-label">Total</label>

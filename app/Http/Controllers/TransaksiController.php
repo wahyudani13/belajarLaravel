@@ -188,6 +188,8 @@ class TransaksiController extends Controller
         /**
          * Update jika ada, dan buat baru jika tidak ada transaksidetail,
          */
+        TransaksiDetail::where('transaksi_id', $request->transaksi_id)->delete();
+
         foreach ($items as $item) {
             $updateTD = TransaksiDetail::updateOrCreate(
                 [
