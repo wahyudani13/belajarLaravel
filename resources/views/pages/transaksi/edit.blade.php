@@ -27,7 +27,12 @@
                 <label for="pegawai" class="form-label">Pegawai</label>
                 <select class="form-select" id="getPegawai" name="getPegawai">
                     <option>Pilih Pegawai</option>
-                    <option value="{{$query->pegawai_id}}" selected>{{$query->pegawai_id}}</option>
+                    @foreach ($getPegawai as $pegawai)
+                    <option value="{{$pegawai->id}}"
+                        {{ $pegawai->id == $query->pegawai_id ? 'selected' : '' }}>
+                        {{ $pegawai->nama_pegawai }}
+                    </option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -60,7 +65,7 @@
                 </div>
                 <div class="col-2">
                     <label for="quantity_barang" class="form-label">Quantity</label>
-                    <input type="text" class="form-control quantity_barang" id="quantity_barang" name="quantity_barang[]" value="{{$detailTransaksi->jumlah}}">
+                    <input type="number" class="form-control quantity_barang" id="quantity_barang" name="quantity_barang[]" value="{{$detailTransaksi->jumlah}}">
                 </div>
                 <div class="col-2">
                     <label for="item-total" class="form-label">Total</label>
@@ -88,7 +93,7 @@
 
         <div class="row mb-3 justify-content-end">
             <div class="col-2">
-                <input type="submit" class="btn btn-lg btn-primary pull-right" name="submit" value="Add">
+                <input type="submit" class="btn btn-lg btn-primary pull-right" name="submit" value="Update">
             </div>
             <div class="col-2">
                 <a href="/transaksi" type="button" class="ml-3 btn btn-lg btn-danger">Batalkan</a>

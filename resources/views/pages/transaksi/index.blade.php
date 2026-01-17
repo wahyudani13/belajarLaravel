@@ -15,19 +15,21 @@
             <tr>
                 <th>No.</th>
                 <th class="text-center">ID Transaksi</th>
-                <th class="text-center">Tanggal</th>
-                <th class="text-center">ID Pegawai</th>
+                <th class="text-center">Tanggal Transaksi</th>
+                <th class="text-center">Nama Pegawai</th>
+                <th class="text-center">Grand Total</th>
                 <th class="text-center">Action</th>
             </tr>
             <?php $no = 1; ?>
             @foreach ($dataJoin as $row)
             <tr>
                 <td>{{$no++}}</td>
-                <td class="text-center">{{$row->kode_transaksi}}</td>
+                <td class="text-center">{{$row->transaksi_id}}</td>
                 <td class="text-center">{{$row->tanggal}}</td>
                 <td class="text-center">{{$row->nama_pegawai}}</td>
+                <th class="text-center">{{$row->grandtotal_harga}}</th>
                 <td class="d-flex justify-content-between">
-                    <a href="/transaksi/{{$row->kode_transaksi}}/edit" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="/transaksi/{{$row->transaksi_id}}/edit" class="btn btn-sm btn-primary">Edit</a>
                     <form action="/delete/{{$row->id}}" method="post">
                         @method('DELETE')
                         @csrf

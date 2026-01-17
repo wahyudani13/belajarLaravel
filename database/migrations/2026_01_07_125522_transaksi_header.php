@@ -14,9 +14,10 @@ return new class extends Migration
         //
         Schema::create('transaksi_header', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_transaksi', 30)->unique();
+            $table->string('transaksi_id', 30)->unique();
             $table->date('tanggal');
             $table->foreignId('pegawai_id')->constrained('pegawai', 'id')->onDelete('cascade')->onUpdate('cascade');
+            $table->decimal('grandtotal_harga', 12, 2);
             $table->timestamps();
         });
     }

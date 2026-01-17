@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('harga', 12, 2);
             $table->timestamps();
 
-            $table->foreign('transaksi_id')->references('kode_transaksi')->on('transaksi_header')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('transaksi_id')->references('transaksi_id')->on('transaksi_header')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
