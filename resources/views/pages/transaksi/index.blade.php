@@ -30,15 +30,35 @@
                 <th class="text-center">{{$row->grandtotal_harga}}</th>
                 <td class="d-flex justify-content-between">
                     <a href="/transaksi/{{$row->transaksi_id}}/edit" class="btn btn-sm btn-primary">Edit</a>
-                    <form action="/delete/{{$row->id}}" method="post">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$row->transaksi_id}}">
+                        Hapus
+                    </button>
                 </td>
             </tr>
             @endforeach
         </table>
     </div>
 </div>
+@foreach ($dataJoin as $row)
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop{{$row->transaksi_id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/transaksi/{{$row->transaksi_id}}" method="post" class="modal-content">
+            @method('DELETE')
+            @csrf
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Hapus Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda Yakin Ingin Menghapus Data Transaksi {{$row->transaksi_id}}?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endforeach
 @endsection

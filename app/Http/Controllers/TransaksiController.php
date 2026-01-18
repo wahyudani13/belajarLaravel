@@ -27,7 +27,7 @@ class TransaksiController extends Controller
         //     ->select('transaksi_header.*', 'pegawai.nama_pegawai')
         //     ->get();
 
-        $dataJoin = $transaksi = TransaksiHeader::join('pegawai', 'transaksi_header.pegawai_id', '=', 'pegawai.id')->get();
+        $dataJoin = TransaksiHeader::join('pegawai', 'transaksi_header.pegawai_id', '=', 'pegawai.id')->orderBy('tanggal', 'desc')->get();
 
 
         // $dataJoin = TransaksiHeader::with('pegawai')->get();
@@ -213,8 +213,14 @@ class TransaksiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TransaksiHeader $transaksiHeader)
+    public function destroy(Request $request, $id)
     {
         //
+
+        TransaksiDetail::where('transaksi_id', $id)->delete();
+        TransaksiHeader::where('transaksi_id', $id)->delete();
+
+        // dd($request, $id);
+        return redirect('/transaksi');
     }
 }
