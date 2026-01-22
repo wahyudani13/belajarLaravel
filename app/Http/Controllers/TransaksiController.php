@@ -53,10 +53,8 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request);
         // Ambil tanggal transaksi
         $tanggal = $request->tanggal_transaksi;
-        // dd($request);
         // Ambil pegawai
         $pegawaiId = $request->getPegawai;
 

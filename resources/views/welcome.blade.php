@@ -19,10 +19,10 @@
             <div class="card text-center bg-secondary text-white shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-3">
-                        <i class="bi bi-receipt"></i> Tabel Transaksi Header
+                        <i class="bi bi-receipt"></i> Tabel Transaksi Penjualan
                     </h5>
                     <a href="/transaksi" class="btn btn-outline-light btn-primary">
-                        <i class="bi bi-eye"></i> Lihat Transaksi Header
+                        <i class="bi bi-eye"></i> Lihat Transaksi Penjualan
                     </a>
                 </div>
             </div>
@@ -46,10 +46,10 @@
             <div class="card text-center bg-secondary text-white shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-3">
-                        <i class="bi bi-list-check"></i> Tabel Transaksi Detail
+                        <i class="bi bi-list-check"></i> Tabel Pembelian
                     </h5>
                     <a href="/" class="btn btn-outline-light btn-primary">
-                        <i class="bi bi-eye"></i> Lihat Transaksi Detail
+                        <i class="bi bi-eye"></i> Lihat Pembelian
                     </a>
                 </div>
             </div>
